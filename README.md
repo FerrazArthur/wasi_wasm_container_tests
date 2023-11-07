@@ -1,13 +1,23 @@
-# wasm-tests
+# WASI-WASM
 
-## Configuration
+This repository contains implementations of container's images that relies on the integration of wasm runtimes and the OCI, via docker, to run wasm applications.
 
-### Install spin
+There are two wasm applications, a simple hello world and a load generator written as a quicksort. The latter can receive multiple arguments. Specífic usage can be found inside its folder.
 
-You can install spin version 1.5.1 with the command:
+## Env requirements
+
+As a alternative runtime for docker, we use wasmedge. This will need a shim and the runtime installed, as well as the docker configured to accept it.
+
+### Shims
+
+Get and install shims from repo [deislabs/containerd-wasm-shims](https://github.com/deislabs/containerd-wasm-shims/releases).
+
+### Wasmedge
+
+In order to install wasmedge, you can get it from the [oficial source](https://wasmedge.org/docs/start/install/) with the command:  
 
 ```bash
-curl -fsSL https://developer.fermyon.com/downloads/install.sh | bash -s -- -v v1.5.1 | sudo mv spin /usr/bin
+curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -p /usr/local
 ```
 
 ### Docker configuration
@@ -66,23 +76,3 @@ If that file doest exists, then you create it and paste inside:
 Then you want to restart docker.service.
 
 </details>
-
-## Run
-
-### Run spin server
-
-To run a spin container, use the following command
-
-```docker container run --name=spin-example -p 3000:80 -v ./volume-log:/log -i --runtime io.containerd.spin.v1 registry.quant1.com.br/arthur/wasm-tests/spin-example up --log-dir /log```
-
-In order to test it:  
-```curl http://localhost:3000/hello```
-
-And also:  
-```curl -d "echo this: hello wasm!" http://localhost:3000/echo```
-
-### Run wasm simple test
-
-To run wasm hello-world, use the following command  
-
-```docker container run --rm --name=hello_wasm_example --runtime=io.containerd.wasmedge.v1 --platform=wasi/wasm registry.quant1.com.br/arthur/wasm-tests/hello-wasm```
