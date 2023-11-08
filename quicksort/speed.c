@@ -130,17 +130,18 @@ int main(int argc,char *argv[]) {
         }
         else
             code_return = 1;
+
+        if (code_return == HELP) {
+            printf("%s", hint);
+            return 0;
+        }
+        else if (code_return == 1){
+            printf("Argumento não reconhecido. Use \"--help\" para ver os\
+argumentos válidos.\n");
+            return 1;
+        }
     }
 
-    if (code_return == HELP) {
-        printf("%s", hint);
-        return 0;
-    }
-    else if (code_return == 1){
-        printf("Argumento não reconhecido. Use \"--help\" para ver os\
-argumentos válidos.\n");
-        return 1;
-    }
 
     speed_quicksearch(n, imprime);
 
