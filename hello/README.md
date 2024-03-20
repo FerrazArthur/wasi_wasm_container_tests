@@ -13,5 +13,5 @@ docker buildx build -t hello .
 ## RUN
 
 ```bash
-docker container run --rm --runtime io.containerd.wasmedge.v1 -i registry.quant1.com.br/arthur/wasm-wasi-tests:main-hello
+docker container run --rm --runtime io.containerd.wasmedge.v1 -i ghcr.io/ferrazarthur/wasi_wasm_container_tests:hello
 ```

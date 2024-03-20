@@ -17,5 +17,5 @@ docker buildx build -t quicksort .
 To see all possible arguments, type:
 
 ```bash
-docker container run --rm --runtime io.containerd.wasmedge.v1 -i registry.quant1.com.br/arthur/wasm-wasi-tests:main-quicksort --help
+docker container run --rm --runtime io.containerd.wasmedge.v1 -i ghcr.io/ferrazarthur/wasi_wasm_container_tests:quicksort --help
 ```
