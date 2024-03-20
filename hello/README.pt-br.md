@@ -4,13 +4,13 @@
 
 ## BUILD
 
-This image is already in the repository registry, but the build command follows:  
+Esta imagem já está no registro do repositório, mas o comando de construção segue abaixo:  
 
 ```bash
 docker buildx build -t hello .
 ```
 
-## RUN
+## EXECUTAR
 
 ```bash
 docker container run --rm --runtime io.containerd.wasmedge.v1 -i registry.quant1.com.br/arthur/wasm-wasi-tests:main-hello

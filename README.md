@@ -1,8 +1,10 @@
 # WASI-WASM
 
+[![en](https://img.shields.io/badge/lang-en-red)](README.md) [![pt-br](https://img.shields.io/badge/lang-pt--br-green)](README.pt-br.md)
+
 This repository contains implementations of container's images that relies on the integration of wasm runtimes and the OCI, via docker, to run wasm applications.
 
-There are two wasm applications, a simple hello world and a load generator written as a quicksort. The latter can receive multiple arguments. Specífic usage can be found inside its folder.
+There are two wasm applications, a simple hello world and a load generator written as a quicksort. The latter can receive multiple arguments. Specífic usage can be found [here](./quicksort/README.md).
 
 ## Env requirements
 
@@ -27,16 +29,18 @@ curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/insta
 
 #### Docker Desktop Engine
 
-The easiest way to run the images is to use docker-desktop.
+To run the containers using docker-desktop engine, follow the steps bellow.
 
 Wasm workloads require the containerd image store feature to be turned on. If you’re not already using the containerd image store, then pre-existing images and containers will be inaccessible.
 
-- Open the Docker Desktop Settings.  
-- Go to Features in development and then select the Beta features tab.
-- Check the following checkboxes:  
-    - Use containerd for storing and pulling images
-    - Enable Wasm
-- Select Apply & restart to save the settings.
+In order to enable containerd image store in docker desktop, follow the instructions bellow.  
+
+- Open the Docker Desktop Settings;
+- Go to Features in development and then select the Beta features tab;
+- Check the following checkboxes:
+  - Use containerd for storing and pulling images;
+  - Enable Wasm.
+- Select Apply & restart to save the settings;
 - In the confirmation dialog, select Install to install the Wasm runtimes.
 
 Docker Desktop downloads and installs the following runtimes that you can use to run Wasm workloads:
@@ -53,6 +57,8 @@ Docker Desktop downloads and installs the following runtimes that you can use to
 
 #### Docker Engine 24.0.6
 
+To run the containers using docker engine, follow the steps bellow: (wasi-wasm containerd shims wasnt supported by the time i wrote this)
+
 Go to file /etc/docker/daemon.json and add this inside it's command block:
 
 ```bash
@@ -61,7 +67,7 @@ Go to file /etc/docker/daemon.json and add this inside it's command block:
   }
 ```
 
-> You need to add a "," in the end of the line before "features": line.
+> You need to add a "," in the end of the line before "features" line.
 
 If that file doest exists, then you create it and paste inside:
 
@@ -73,6 +79,10 @@ If that file doest exists, then you create it and paste inside:
 }
 ```
 
-Then you want to restart docker.service.
+Then you want to restart docker.service with command:
+
+```bash
+sudo systemctl restart docker.service
+```
 
 </details>

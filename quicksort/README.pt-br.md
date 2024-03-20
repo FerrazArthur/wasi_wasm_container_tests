@@ -1,20 +1,20 @@
-# QUICKSORT LOAD GENERATOR
+# GERADOR DE CARGA QUICKSORT
 
 [![en](https://img.shields.io/badge/lang-en-red)](/quicksort/README.md) [![pt-br](https://img.shields.io/badge/lang-pt--br-green)](/quicksort/README.pt-br.md)
 
-This is a load generator algorithm that implements the wost case search for quicksort O(n²).
+Este é um algoritmo gerador de carga que implementa a busca pelo pior caso do quicksort, que é O(n²).
 
 ## BUILD
 
-This image is already in the repository registry, but the build command follows:  
+Este imagem já está no registro do repositório, mas o comando de construção segue abaixo:
 
 ```bash
 docker buildx build -t quicksort .
 ```
 
-## RUN
+## EXECUTAR
 
-To see all possible arguments, type:
+Para ver todos os argumentos possíveis, digite:
 
 ```bash
 docker container run --rm --runtime io.containerd.wasmedge.v1 -i registry.quant1.com.br/arthur/wasm-wasi-tests:main-quicksort --help
