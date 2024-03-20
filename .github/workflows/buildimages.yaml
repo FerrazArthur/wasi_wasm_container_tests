@@ -1,0 +1,36 @@
+name: Docker Build
+
+on:
+  push:
+    branches:
+      - '*'
+jobs:
+  docker-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Build and push hello_world image
+        run: |
+          docker build -t ghcr.io/${{ github.repository }}:hello ./hello
+          docker push ghcr.io/${{ github.repository }}:hello
+        
+      - name: Build and push quicksort image
+        run: |
+          docker build -t ghcr.io/${{ github.repository }}:quicksort ./quicksort
+          docker push ghcr.io/${{ github.repository }}:quicksort
+
+          # Tag quicksort as the latest image if the push is to the main branch
+          if [ ${{ github.ref }} == 'refs/heads/main' ]; then
+            docker tag ghcr.io/${{ github.repository }}:quicksort ghcr.io/${{ github.repository }}:latest
+            docker push ghcr.io/${{ github.repository }}:latest
+          fi
