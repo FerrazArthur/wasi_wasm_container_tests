@@ -18,19 +18,25 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: set lower case repository
+        run: |
+          echo "REPOSITORY_LC=${REPOSITORY,,}" >>${GITHUB_ENV}
+        env:
+          REPOSITORY: '${{ github.repository }}'
       
       - name: Build and push hello_world image
         run: |
-          docker build -t ghcr.io/${{ github.repository }}:hello ./hello
-          docker push ghcr.io/${{ github.repository }}:hello
+          docker build -t ghcr.io/${REPOSITORY_LC}:hello ./hello
+          docker push ghcr.io/${REPOSITORY_LC}:hello
         
       - name: Build and push quicksort image
         run: |
-          docker build -t ghcr.io/${{ github.repository }}:quicksort ./quicksort
-          docker push ghcr.io/${{ github.repository }}:quicksort
+          docker build -t ghcr.io/${REPOSITORY_LC}:quicksort ./quicksort
+          docker push ghcr.io/${REPOSITORY_LC}:quicksort
 
           # Tag quicksort as the latest image if the push is to the main branch
           if [ ${{ github.ref }} == 'refs/heads/main' ]; then
-            docker tag ghcr.io/${{ github.repository }}:quicksort ghcr.io/${{ github.repository }}:latest
-            docker push ghcr.io/${{ github.repository }}:latest
+            docker tag ghcr.io/${REPOSITORY_LC}:quicksort ghcr.io/${REPOSITORY_LC}:latest
+            docker push ghcr.io/${REPOSITORY_LC}:latest
           fi
