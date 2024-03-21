@@ -28,7 +28,7 @@ jobs:
         env:
           REPOSITORY: '${{ github.repository }}'
       
-      - name: Build and push hello_world image
+      - name: Build and push hello-world image
         run: |
           docker build -t ghcr.io/${REPOSITORY_LC}:hello ./hello
           docker push ghcr.io/${REPOSITORY_LC}:hello
